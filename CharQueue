@@ -1,0 +1,55 @@
+public class CharQueue {
+    private char[] queueArray;
+    private int front; // Index of the front element
+    private int rear; // Index of the rear element
+    private int size;
+
+    public CharQueue(int capacity) {
+        queueArray = new char[capacity];
+        front = 0;
+        rear = -1;
+        size = 0;
+    }
+
+    public void enqueue(char ch) {
+        if (size == queueArray.length) {
+            System.out.println("Queue is full. Cannot enqueue " + ch);
+            return;
+        }
+        rear = (rear + 1) % queueArray.length;
+        queueArray[rear] = ch;
+        size++;
+    }
+
+    public char dequeue() {
+        if (isEmpty()) {
+            System.out.println("Queue is empty. Cannot dequeue.");
+            return '\0'; // Return null character as a sentinel value
+        }
+        char temp = queueArray[front];
+        front = (front + 1) % queueArray.length;
+        size--;
+        return temp;
+    }
+
+    public boolean isEmpty() {
+        return size == 0;
+    }
+
+    public int size() {
+        return size;
+    }
+
+    public static void main(String[] args) {
+        CharQueue queue = new CharQueue(5);
+        queue.enqueue('A');
+        queue.enqueue('B');
+        queue.enqueue('C');
+
+        System.out.println("Dequeued: " + queue.dequeue()); // Should print 'A'
+        System.out.println("Dequeued: " + queue.dequeue()); // Should print 'B'
+        queue.enqueue('D');
+        System.out.println("Dequeued: " + queue.dequeue()); // Should print 'C'
+        System.out.println("Dequeued: " + queue.dequeue()); // Should print 'D'
+    }
+}
