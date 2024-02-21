@@ -1,0 +1,48 @@
+public class FloatQueue {
+    private float[] queueArray;
+    private int front; // Index of the front element
+    private int rear; // Index of the rear element
+    private int size;
+
+    public FloatQueue(int capacity) {
+        queueArray = new float[capacity];
+        front = 0;
+        rear = -1;
+        size = 0;
+    }
+
+    public void enqueue(float item) {
+        if (size == queueArray.length) {
+            System.out.println("Queue is full. Cannot enqueue " + item);
+            return;
+        }
+        rear = (rear + 1) % queueArray.length;
+        queueArray[rear] = item;
+        size++;
+    }
+
+    public float dequeue() {
+        if (isEmpty()) {
+            System.out.println("Queue is empty. Cannot dequeue.");
+            return Float.NaN; // Return a sentinel value (Not-a-Number)
+        }
+        float temp = queueArray[front];
+        front = (front + 1) % queueArray.length;
+        size--;
+        return temp;
+    }
+
+    public boolean isEmpty() {
+        return size == 0;
+    }
+
+    public int size() {
+        return size;
+    }
+
+    public static void main(String[] args) {
+        FloatQueue queue = new FloatQueue(5);
+        queue.enqueue(3.14f);
+        queue.enqueue(2.71f);
+        queue.enqueue(1.618f);
+
