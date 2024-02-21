@@ -1,0 +1,55 @@
+public class WordQueue {
+    private String[] queueArray;
+    private int front; // Index of the front element
+    private int rear; // Index of the rear element
+    private int size;
+
+    public WordQueue(int capacity) {
+        queueArray = new String[capacity];
+        front = 0;
+        rear = -1;
+        size = 0;
+    }
+
+    public void enqueue(String word) {
+        if (size == queueArray.length) {
+            System.out.println("Queue is full. Cannot enqueue " + word);
+            return;
+        }
+        rear = (rear + 1) % queueArray.length;
+        queueArray[rear] = word;
+        size++;
+    }
+
+    public String dequeue() {
+        if (isEmpty()) {
+            System.out.println("Queue is empty. Cannot dequeue.");
+            return null;
+        }
+        String temp = queueArray[front];
+        front = (front + 1) % queueArray.length;
+        size--;
+        return temp;
+    }
+
+    public boolean isEmpty() {
+        return size == 0;
+    }
+
+    public int size() {
+        return size;
+    }
+
+    public static void main(String[] args) {
+        WordQueue queue = new WordQueue(5);
+        queue.enqueue("Hello");
+        queue.enqueue("World");
+        queue.enqueue("Java");
+
+        System.out.println("Dequeued: " + queue.dequeue()); // Should print "Hello"
+        System.out.println("Dequeued: " + queue.dequeue()); // Should print "World"
+        queue.enqueue("Copilot");
+        System.out.println("Dequeued: " + queue.dequeue()); // Should print "Java"
+        System.out.println("Dequeued: " + queue.dequeue()); // Should print "Copilot"
+    }
+}
