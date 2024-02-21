@@ -1,0 +1,29 @@
+public class IntQueue {
+    private int[] queueArray;
+    private int front; // Index of the front element
+    private int rear; // Index of the rear element
+    private int size;
+
+    public IntQueue(int capacity) {
+        queueArray = new int[capacity];
+        front = 0;
+        rear = -1;
+        size = 0;
+    }
+
+    public void enqueue(int item) {
+        if (size == queueArray.length) {
+            System.out.println("Queue is full. Cannot enqueue " + item);
+            return;
+        }
+        rear = (rear + 1) % queueArray.length;
+        queueArray[rear] = item;
+        size++;
+    }
+
+    public int dequeue() {
+        if (isEmpty()) {
+            System.out.println("Queue is empty. Cannot dequeue.");
+            return Integer.MIN_VALUE; // Return a sentinel value
+        }
+        int temp = queueArray[front];
