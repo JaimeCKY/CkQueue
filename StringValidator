@@ -1,0 +1,20 @@
+public class StringValidator {
+    private static final String VALID_CHARS = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789+-*/ ()[]{}";
+
+    public static boolean isValidString(String input) {
+        for (char c : input.toCharArray()) {
+            if (VALID_CHARS.indexOf(c) == -1) {
+                return false; // Character is not valid
+            }
+        }
+        return true; // All characters are valid
+    }
+
+    public static void main(String[] args) {
+        String testString1 = "3 + 2 * (5 - 1)"; // Valid string
+        String testString2 = "Hello, world!"; // Invalid string
+
+        System.out.println("Is \"" + testString1 + "\" valid? " + isValidString(testString1));
+        System.out.println("Is \"" + testString2 + "\" valid? " + isValidString(testString2));
+    }
+}
